@@ -10,7 +10,7 @@ class AIAssistant {
       console.log('Using local API endpoint:', this.endpoint);
     } else {
       // Production - Netlify serverless function
-      this.endpoint = '/netlify/functions/chat';
+      this.endpoint = '/.netlify/functions/chat';
       console.log('Using production API endpoint:', this.endpoint);
     }
   }

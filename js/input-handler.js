@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     Don't tell extra stuff, only tell whats asked for, don't add extra information.
     if asked for links, provide full urls.
     User can ask you about stack or about context, but nothing else.
-    IMPORTANT: Keep your responses short and to the point. and use HTML to format your responses.
+    IMPORTANT: Keep your responses short and to the point.
     
   `;
     
