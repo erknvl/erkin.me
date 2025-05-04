@@ -1,22 +1,9 @@
 // Secure OpenRouter integration using middleware API
 class AIAssistant {
   constructor() {
-    // Detect environment and use appropriate endpoint
-    if (window.location.protocol === 'file:' || 
-        window.location.hostname === 'localhost' || 
-        window.location.hostname === '127.0.0.1') {
-      // Local development - use local proxy to protect API key
-      this.endpoint = 'http://localhost:3000/api/chat';
-      this.isLocalDev = true;
-      console.log('Using local development API endpoint');
-    } else {
-      // Production - use direct API call with GitHub Pages
-      // In production, the API key should be stored securely
-      // and not exposed to the client
       this.endpoint = 'https://api.openrouter.ai/api/v1/chat/completions';
       this.isLocalDev = false;
       console.log('Using production API endpoint');
-    }
   }
 
   async generateResponse(prompt, context = '') {
