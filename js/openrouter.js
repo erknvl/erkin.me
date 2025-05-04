@@ -1,100 +1,90 @@
 // Secure OpenRouter integration using middleware API
 class AIAssistant {
   constructor() {
-      // Check if we're in local development or production
-      const hostname = window.location.hostname;
-      this.isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1';
+      // Always use the direct OpenRouter API endpoint
+      this.endpoint = 'https://api.openrouter.ai/api/v1/chat/completions';
+      console.log('Using production API endpoint');
       
-      if (this.isLocalDev) {
-        // For local development, use the proxy endpoint
-        this.endpoint = 'http://localhost:3000/api/openrouter';
-        console.log('Using local development API endpoint');
-      } else {
-        // For production, use the Netlify function or direct OpenRouter endpoint
-        this.endpoint = 'https://api.openrouter.ai/api/v1/chat/completions';
-        console.log('Using production API endpoint');
-      }
+      // We'll load the API key from a config file that will be populated during build
+      this.apiKey = null;
+      this.loadConfig();
   }
-
-  // Method to securely get the API key
-  async getApiKey() {
-    // In production, we should fetch this from a secure backend endpoint
-    // that doesn't expose the key in client-side code
+  
+  // Load configuration from config.js file that will be generated during build
+  async loadConfig() {
     try {
-      const response = await fetch('/.netlify/functions/get-api-key');
-      if (!response.ok) {
-        throw new Error(`Failed to get API key: ${response.status}`);
+      // Wait for the config to be loaded
+      if (typeof window.ENV_CONFIG === 'undefined') {
+        // Wait for config script to load
+        await new Promise(resolve => {
+          const checkConfig = () => {
+            if (typeof window.ENV_CONFIG !== 'undefined') {
+              resolve();
+            } else {
+              setTimeout(checkConfig, 100);
+            }
+          };
+          checkConfig();
+        });
       }
-      const data = await response.json();
-      return data.apiKey;
+      
+      // Get API key from config
+      this.apiKey = window.ENV_CONFIG.OPENROUTER_API_KEY;
+      if (!this.apiKey) {
+        console.error('API key not found in configuration');
+      }
     } catch (error) {
-      console.error('Error getting API key:', error);
-      throw new Error('Could not retrieve API key. Please try again later.');
+      console.error('Error loading configuration:', error);
     }
   }
 
   async generateResponse(prompt, context = '') {
     try {
+      // Make sure the API key is loaded before proceeding
+      if (!this.apiKey) {
+        // Wait for config to load if it hasn't already
+        await new Promise(resolve => {
+          const checkApiKey = () => {
+            if (this.apiKey) {
+              resolve();
+            } else {
+              console.log('Waiting for API key to load...');
+              setTimeout(checkApiKey, 100);
+            }
+          };
+          checkApiKey();
+        });
+      }
+      
       console.log('Sending request to:', this.endpoint);
       
-      if (this.isLocalDev) {
-        // Local development - use the proxy server
-        const response = await fetch(this.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            prompt: prompt,
-            context: context
-          }),
-          mode: 'cors',
-          credentials: 'omit'
-        });
-        
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('API response error:', response.status, errorText);
-          throw new Error(`API error (${response.status}): ${errorText || 'Unknown error'}`);
-        }
-        
-        const data = await response.json();
-        console.log('API response received');
-        return data.content;
-      } else {
-        // Production - direct API call to OpenRouter
-        // Get API key from environment or from a secure source
-        // For security, we should be using a backend proxy in production too
-        // but this is a fallback if that's not set up
-        const OPENROUTER_API_KEY = await this.getApiKey();
-        
-        const response = await fetch(this.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-            'HTTP-Referer': 'https://erkin.me',
-            'X-Title': 'Erkin\'s Personal Website'
-          },
-          body: JSON.stringify({
-            model: 'mistralai/mistral-small-3.1-24b-instruct:free',
-            messages: [
-              { role: 'system', content: `You are an assistant for Erkin Ovlyagulyyev, a Flutter Developer. ${context}` },
-              { role: 'user', content: prompt }
-            ]
-          })
-        });
-        
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('OpenRouter API error:', response.status, errorText);
-          throw new Error(`API error (${response.status}): ${errorText || 'Unknown error'}`);
-        }
-        
-        const data = await response.json();
-        console.log('OpenRouter API response received');
-        return data.choices[0].message.content;
+      // Direct API call to OpenRouter with API key
+      const response = await fetch(this.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+          'HTTP-Referer': 'https://erkin.me',
+          'X-Title': 'Erkin\'s Personal Website'
+        },
+        body: JSON.stringify({
+          model: 'mistralai/mistral-small-3.1-24b-instruct:free',
+          messages: [
+            { role: 'system', content: `You are an assistant for Erkin Ovlyagulyyev, a Flutter Developer. ${context}` },
+            { role: 'user', content: prompt }
+          ]
+        })
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('OpenRouter API error:', response.status, errorText);
+        throw new Error(`API error (${response.status}): ${errorText || 'Unknown error'}`);
       }
+      
+      const data = await response.json();
+      console.log('OpenRouter API response received');
+      return data.choices[0].message.content;
     } catch (error) {
       console.error('Error in AI response generation:', error);
       throw error;
