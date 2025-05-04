@@ -25,7 +25,6 @@ jobs:
             .env
             package.json
             package-lock.json
-            netlify.toml
           # Make sure to include these files
           commit-message: "Deploy website to GitHub Pages [skip ci]"
           single-commit: true
