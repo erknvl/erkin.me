@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="yandex-verification" content="f5d669f930142382" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="Description"
+    content="Hi, my name is Erkin, Flutter Developer and just a guy who's passionate about UI/UX" />
+  <meta name="google" content="nositelinkssearchbox" />
+  <title>Erkin Ovlyagulyyev - Flutter Developer</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/style.css">
+  <script src="./js/openrouter.js" defer></script>
+  <script src="./js/input-handler.js" defer></script>
+  <script>
+    // Check for user preference or saved theme
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+
+    // Check for saved theme preference or default to user preference
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    }
+    
+    // Typing animation - complete in about 3 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+      const codeLines = document.querySelectorAll('.code-line');
+      const totalLines = codeLines.length;
+      // Calculate delay to fit all animations within ~3 seconds
+      const delayPerLine = 3000 / totalLines;
+      let delay = 50; // Initial delay before starting
+      
+      codeLines.forEach((line, index) => {
+        // Calculate staggered delay for each line
+        const lineDelay = delay + (index * delayPerLine);
+        
+        // Add visible class with delay to create typing effect
+        setTimeout(() => {
+          line.classList.add('visible');
+        }, lineDelay);
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-TF5S38B" height="0"
+      width="0" style="display: none; visibility: hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <span class="toggle-icon">◐</span>
+  </div>
+  <div class="root-container">
+    <main>
+      <div class="code-container">
+        
+        <div class="code-line"><span class="comment">// Developer Profile</span></div>
+        <div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = <span class="class-name">Developer</span>(</div>
+          <div class="code-line indent"><span class="property">id</span>: <span class="string">1108</span>,</div>
+          <div class="code-line indent"><span class="property">name</span>: <span class="string">"Erkin Ovlyagulyyev"</span>,</div>
+          <div class="code-line indent"><span class="property">role</span>: <span class="string">"Flutter Developer"</span>,</div>
+          <div class="code-line indent"><span class="property">company</span>: <span class="string"><a href="https://www.sputnik8.com" target="_blank" rel="noreferrer">"https://www.sputnik8.com"</a></span>,</div>
+          <div class="code-line indent"><span class="property">location</span>: <span class="string"><a href="https://goo.gl/maps/zqCxmK49XHVn1w716" target="_blank">"Istanbul, Turkey"</a></span></div>
+          <div class="code-line">);</div>
+          <div class="code-line"></div>
+      </br>
+          <div class="code-line"><span class="comment">// Contact</span></div>
+          <div class="code-line"><span class="keyword">const</span> <span class="variable">contact</span> = <span class="class-name">Contact</span>(</div>
+          <div class="code-line indent"><span class="property">developerId</span>: <span class="string">1108</span>,</div>
+            <div class="code-line indent"><span class="property">email</span>: <span class="string"><a class="social" href="mailto:mail@erkin.me" target="_blank">"mail@erkin.me"</a></span>,</div>
+            <div class="code-line indent"><span class="property">telegram</span>: <span class="string"><a class="social" href="https://t.me/erknvl" target="_blank">"@erknvl"</a></span></div>
+            <div class="code-line">);</div>
+            <div class="code-line"><span class="comment">// TO-DO: I'll add more data, but for now you can just type to ask me anything</span></div>
+            <div class="code-line"><span class="comment">// can just type to ask me anything</span></div>
+
+      </br>
+        <div id="chatContainer" class="chat-container">
+        </div>
+        <input type="text" id="textInput" class="text-input" placeholder="Ask me anything..." list="suggestions" autocomplete="off" autofocus />
+      </div>
+      
+      
+    </main>
+
+  </div>
+</body>
+
+</html>

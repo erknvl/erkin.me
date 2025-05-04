@@ -1,0 +1,370 @@
+/* Define CSS variables for theming - Flutter/Dart colors */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #121212;
+  --comment-color: #6E7681; /* Dart comment color - light mode */
+  --keyword-color: #0550AE; /* Dart keyword color - light mode */
+  --variable-color: #953800; /* Dart variable color - light mode */
+  --property-color: #953800; /* Dart property color - light mode */
+  --string-color: #0A3069; /* Dart string color - light mode */
+  --class-name-color: #116329; /* Dart class name color - light mode */
+  --type-color: #116329; /* Dart type color - light mode */
+  --function-color: #8250DF; /* Dart function color - light mode */
+  --link-color: #0969DA;
+  --link-hover-color: #0550AE;
+  --toggle-bg: #f0f0f0;
+  --toggle-hover: #e0e0e0;
+}
+
+/* Dark mode theme */
+[data-theme="dark"] {
+  --bg-color: #0D1117;
+  --text-color: #E6EDF3;
+  --comment-color: #8B949E; /* Dart comment color - dark mode */
+  --keyword-color: #FF7B72; /* Dart keyword color - dark mode */
+  --variable-color: #79C0FF; /* Dart variable color - dark mode */
+  --property-color: #79C0FF; /* Dart property color - dark mode */
+  --string-color: #A5D6FF; /* Dart string color - dark mode */
+  --class-name-color: #7EE787; /* Dart class name color - dark mode */
+  --type-color: #7EE787; /* Dart type color - dark mode */
+  --function-color: #D2A8FF; /* Dart function color - dark mode */
+  --link-color: #58A6FF;
+  --link-hover-color: #79C0FF;
+  --toggle-bg: #21262D;
+  --toggle-hover: #30363D;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Geist Mono", monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+  overflow-x: hidden;
+  overflow-y: auto; /* Ensure vertical scrolling is enabled */
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--toggle-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--toggle-hover);
+}
+
+.toggle-icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.root-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Allow content to expand beyond viewport height */
+  height: auto;
+}
+
+main {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Code container styling */
+.code-container {
+  text-align: left;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  /* Allow content to flow naturally */
+  overflow: visible;
+}
+
+.code-line {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+
+.indent {
+  padding-left: 20px;
+}
+
+/* Syntax highlighting for Flutter/Dart */
+.comment {
+  color: var(--comment-color);
+}
+
+.keyword {
+  color: var(--keyword-color);
+  font-weight: 500;
+}
+
+.variable {
+  color: var(--variable-color);
+}
+
+.property {
+  color: var(--property-color);
+}
+
+.string {
+  color: var(--string-color);
+}
+
+.class-name {
+  color: var(--class-name-color);
+  font-weight: 500;
+}
+
+.type {
+  color: var(--type-color);
+}
+
+.function {
+  color: var(--function-color);
+}
+
+.indent.indent {
+  padding-left: 40px;
+}
+
+/* Link styling */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-bottom: 1px dotted var(--link-color);
+  padding-bottom: 1px;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  border-bottom: 1px solid var(--link-hover-color);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .code-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .root-container {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+
+  main {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Terminal input box instead of cursor */
+.code-container::after {
+  content: '';
+  display: none;
+}
+
+.terminal-input {
+  position: absolute;
+  bottom: 20px;
+  left: 35px;
+  width: 60%;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: "Geist Mono", monospace;
+  font-size: 16px;
+}
+
+/* Chat Styles */
+.chat-container {
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 10px;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  padding: 5px 0 20px 0px;
+  border-bottom: 1px dashed var(--text-color);
+  line-height: 1.4;
+  text-align: left;
+}
+
+.chat-message {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted var(--comment-color);
+}
+
+.chat-message:last-child {
+  border-bottom: none;
+}
+
+.user-message {
+  color: var(--keyword-color);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.user-message::before {
+  content: '// ';
+  opacity: 0.7;
+}
+
+.assistant-message {
+  color: var(--comment-color);
+  opacity: 0.9;
+  margin-left: 10px;
+}
+
+.assistant-message-container.typing .assistant-message::after {
+  content: '|';
+  display: inline-block;
+  font-size: 20px;
+  animation: blink 1s infinite;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.text-input:focus {
+  outline: none;
+}
+
+/* Style for the cursor in the text input */
+.text-input::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+/* Style the datalist dropdown (browser support varies) */
+datalist {
+  font-family: "Geist Mono", monospace;
+  color: var(--text-color);
+}
+
+/* Toast notification styles */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 12px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.9rem;
+  max-width: 80%;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+  text-align: center;
+  border: 1px solid var(--text-color);
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast.loading {
+  background-color: var(--keyword-color);
+  color: white;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Typing animation */
+.code-line {
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.code-line.visible {
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+  animation: typing 0.5s ease-in-out;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Make sure indented lines maintain their indentation during animation */
+.code-line.indent.visible {
+  padding-left: 20px;
+  width: calc(100% - 20px);
+}
+
+.code-line.indent.indent.visible {
+  padding-left: 40px;
+  width: calc(100% - 40px);
+}
