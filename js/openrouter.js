@@ -1,9 +1,36 @@
 // Secure OpenRouter integration using middleware API
 class AIAssistant {
   constructor() {
-      this.endpoint = 'https://api.openrouter.ai/api/v1/chat/completions';
-      this.isLocalDev = false;
-      console.log('Using production API endpoint');
+      // Check if we're in local development or production
+      const hostname = window.location.hostname;
+      this.isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1';
+      
+      if (this.isLocalDev) {
+        // For local development, use the proxy endpoint
+        this.endpoint = 'http://localhost:3000/api/openrouter';
+        console.log('Using local development API endpoint');
+      } else {
+        // For production, use the Netlify function or direct OpenRouter endpoint
+        this.endpoint = 'https://api.openrouter.ai/api/v1/chat/completions';
+        console.log('Using production API endpoint');
+      }
+  }
+
+  // Method to securely get the API key
+  async getApiKey() {
+    // In production, we should fetch this from a secure backend endpoint
+    // that doesn't expose the key in client-side code
+    try {
+      const response = await fetch('/.netlify/functions/get-api-key');
+      if (!response.ok) {
+        throw new Error(`Failed to get API key: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.apiKey;
+    } catch (error) {
+      console.error('Error getting API key:', error);
+      throw new Error('Could not retrieve API key. Please try again later.');
+    }
   }
 
   async generateResponse(prompt, context = '') {
@@ -36,9 +63,10 @@ class AIAssistant {
         return data.content;
       } else {
         // Production - direct API call to OpenRouter
-        // You need to securely store your API key
-        // This is just a placeholder - you should use a more secure method
-        const OPENROUTER_API_KEY = 'YOUR_OPENROUTER_API_KEY'; // Replace with your secure method
+        // Get API key from environment or from a secure source
+        // For security, we should be using a backend proxy in production too
+        // but this is a fallback if that's not set up
+        const OPENROUTER_API_KEY = await this.getApiKey();
         
         const response = await fetch(this.endpoint, {
           method: 'POST',
