@@ -33,8 +33,49 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Parse request body
-    const { prompt, context = '' } = JSON.parse(event.body);
+    // Parse request body - handle both JSON and form data
+    let prompt, context = '';
+    
+    // Check if the request is form data or JSON
+    const contentType = event.headers['content-type'] || '';
+    console.log('Content-Type:', contentType);
+    
+    if (contentType.includes('application/json')) {
+      // Handle JSON data
+      const parsedBody = JSON.parse(event.body);
+      prompt = parsedBody.prompt;
+      context = parsedBody.context || '';
+      console.log('Parsed JSON body');
+    } else if (contentType.includes('multipart/form-data')) {
+      // Handle form data
+      // Simple parsing for form data boundaries
+      const formData = event.body.toString();
+      console.log('Form data received:', formData.substring(0, 100) + '...');
+      
+      // Extract prompt from form data
+      const promptMatch = formData.match(/name="prompt"[^\r\n]*\r\n([^\r\n]*)/i);
+      prompt = promptMatch ? promptMatch[1] : null;
+      
+      // Extract context from form data
+      const contextMatch = formData.match(/name="context"[^\r\n]*\r\n([^\r\n]*)/i);
+      context = contextMatch ? contextMatch[1] : '';
+      
+      console.log('Parsed form data, prompt:', prompt);
+    } else {
+      // Try to parse as JSON as fallback
+      try {
+        const parsedBody = JSON.parse(event.body);
+        prompt = parsedBody.prompt;
+        context = parsedBody.context || '';
+        console.log('Fallback: Parsed as JSON');
+      } catch (e) {
+        console.log('Could not parse body as JSON:', e);
+      }
+    }
+    
+    // Log the parsed data
+    console.log('Parsed prompt:', prompt);
+    console.log('Parsed context:', context ? context.substring(0, 50) + '...' : '');
     
     if (!prompt) {
       return {
