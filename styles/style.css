@@ -1,0 +1,219 @@
+/* Define CSS variables for theming - Flutter/Dart colors */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #121212;
+  --comment-color: #6E7681; /* Dart comment color - light mode */
+  --keyword-color: #0550AE; /* Dart keyword color - light mode */
+  --variable-color: #953800; /* Dart variable color - light mode */
+  --property-color: #953800; /* Dart property color - light mode */
+  --string-color: #0A3069; /* Dart string color - light mode */
+  --class-name-color: #116329; /* Dart class name color - light mode */
+  --type-color: #116329; /* Dart type color - light mode */
+  --function-color: #8250DF; /* Dart function color - light mode */
+  --link-color: #0969DA;
+  --link-hover-color: #0550AE;
+  --toggle-bg: #f0f0f0;
+  --toggle-hover: #e0e0e0;
+}
+
+/* Dark mode theme */
+[data-theme="dark"] {
+  --bg-color: #0D1117;
+  --text-color: #E6EDF3;
+  --comment-color: #8B949E; /* Dart comment color - dark mode */
+  --keyword-color: #FF7B72; /* Dart keyword color - dark mode */
+  --variable-color: #79C0FF; /* Dart variable color - dark mode */
+  --property-color: #79C0FF; /* Dart property color - dark mode */
+  --string-color: #A5D6FF; /* Dart string color - dark mode */
+  --class-name-color: #7EE787; /* Dart class name color - dark mode */
+  --type-color: #7EE787; /* Dart type color - dark mode */
+  --function-color: #D2A8FF; /* Dart function color - dark mode */
+  --link-color: #58A6FF;
+  --link-hover-color: #79C0FF;
+  --toggle-bg: #21262D;
+  --toggle-hover: #30363D;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Geist Mono", monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--toggle-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--toggle-hover);
+}
+
+.toggle-icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.root-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Code container styling */
+.code-container {
+  text-align: left;
+  background-color: var(--bg-color);
+  border-radius: 6px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  overflow: auto;
+}
+
+.code-line {
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+
+.indent {
+  padding-left: 20px;
+}
+
+/* Syntax highlighting for Flutter/Dart */
+.comment {
+  color: var(--comment-color);
+}
+
+.keyword {
+  color: var(--keyword-color);
+  font-weight: 500;
+}
+
+.variable {
+  color: var(--variable-color);
+}
+
+.property {
+  color: var(--property-color);
+}
+
+.string {
+  color: var(--string-color);
+}
+
+.class-name {
+  color: var(--class-name-color);
+  font-weight: 500;
+}
+
+.type {
+  color: var(--type-color);
+}
+
+.function {
+  color: var(--function-color);
+}
+
+.indent.indent {
+  padding-left: 40px;
+}
+
+/* Link styling */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-bottom: 1px dotted var(--link-color);
+  padding-bottom: 1px;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  border-bottom: 1px solid var(--link-hover-color);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .code-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .root-container {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+
+  main {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Animation for cursor effect */
+.code-container::after {
+  content: '|';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: var(--text-color);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
