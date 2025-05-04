@@ -32,6 +32,25 @@
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       setTheme(newTheme);
     }
+    
+    // Typing animation - complete in about 3 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+      const codeLines = document.querySelectorAll('.code-line');
+      const totalLines = codeLines.length;
+      // Calculate delay to fit all animations within ~3 seconds
+      const delayPerLine = 3000 / totalLines;
+      let delay = 50; // Initial delay before starting
+      
+      codeLines.forEach((line, index) => {
+        // Calculate staggered delay for each line
+        const lineDelay = delay + (index * delayPerLine);
+        
+        // Add visible class with delay to create typing effect
+        setTimeout(() => {
+          line.classList.add('visible');
+        }, lineDelay);
+      });
+    });
   </script>
 </head>
 

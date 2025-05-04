@@ -219,3 +219,36 @@ a:hover {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* Typing animation */
+.code-line {
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.code-line.visible {
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+  animation: typing 0.5s ease-in-out;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Make sure indented lines maintain their indentation during animation */
+.code-line.indent.visible {
+  padding-left: 20px;
+  width: calc(100% - 20px);
+}
+
+.code-line.indent.indent.visible {
+  padding-left: 40px;
+  width: calc(100% - 40px);
+}
