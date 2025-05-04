@@ -51,6 +51,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-y: auto; /* Ensure vertical scrolling is enabled */
 }
 
 .theme-toggle {
@@ -85,6 +86,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* Allow content to expand beyond viewport height */
+  height: auto;
 }
 
 main {
@@ -105,8 +108,8 @@ main {
   max-width: 500px;
   margin: 0 auto;
   position: relative;
-  overflow: auto;
-  
+  /* Allow content to flow naturally */
+  overflow: visible;
 }
 
 .code-line {
@@ -204,15 +207,128 @@ a:hover {
   }
 }
 
-/* Animation for cursor effect */
+/* Terminal input box instead of cursor */
 .code-container::after {
-  content: '|';
+  content: '';
+  display: none;
+}
+
+.terminal-input {
   position: absolute;
   bottom: 20px;
   left: 35px;
+  width: 60%;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
   color: var(--text-color);
+  font-family: "Geist Mono", monospace;
+  font-size: 16px;
+}
+
+/* Chat Styles */
+.chat-container {
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 10px;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  padding: 5px 0 20px 0px;
+  border-bottom: 1px dashed var(--text-color);
+  line-height: 1.4;
+  text-align: left;
+}
+
+.chat-message {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted var(--comment-color);
+}
+
+.chat-message:last-child {
+  border-bottom: none;
+}
+
+.user-message {
+  color: var(--keyword-color);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.user-message::before {
+  content: '// ';
+  opacity: 0.7;
+}
+
+.assistant-message {
+  color: var(--comment-color);
+  opacity: 0.9;
+  margin-left: 10px;
+}
+
+.assistant-message-container.typing .assistant-message::after {
+  content: '|';
+  display: inline-block;
   font-size: 20px;
   animation: blink 1s infinite;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.95rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.text-input:focus {
+  outline: none;
+}
+
+/* Style for the cursor in the text input */
+.text-input::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+/* Style the datalist dropdown (browser support varies) */
+datalist {
+  font-family: "Geist Mono", monospace;
+  color: var(--text-color);
+}
+
+/* Toast notification styles */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 12px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.9rem;
+  max-width: 80%;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+  text-align: center;
+  border: 1px solid var(--text-color);
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast.loading {
+  background-color: var(--keyword-color);
+  color: white;
 }
 
 @keyframes blink {

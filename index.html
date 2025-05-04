@@ -15,6 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/style.css">
+  <script src="./js/openrouter.js" defer></script>
+  <script src="./js/input-handler.js" defer></script>
   <script>
     // Check for user preference or saved theme
     function setTheme(theme) {
@@ -66,6 +68,7 @@
   <div class="root-container">
     <main>
       <div class="code-container">
+        
         <div class="code-line"><span class="comment">// Developer Profile</span></div>
         <div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = <span class="class-name">Developer</span>(</div>
           <div class="code-line indent"><span class="property">id</span>: <span class="string">1108</span>,</div>
@@ -82,9 +85,16 @@
             <div class="code-line indent"><span class="property">email</span>: <span class="string"><a class="social" href="mailto:mail@erkin.me" target="_blank">"mail@erkin.me"</a></span>,</div>
             <div class="code-line indent"><span class="property">telegram</span>: <span class="string"><a class="social" href="https://t.me/erknvl" target="_blank">"@erknvl"</a></span></div>
             <div class="code-line">);</div>
-            <div class="code-line"><span class="comment">// TO-DO: Add more data</span></div>
+            <div class="code-line"><span class="comment">// TO-DO: I'll add more data, but for now you can just type to ask me anything</span></div>
+            <div class="code-line"><span class="comment">// can just type to ask me anything</span></div>
+
       </br>
+        <div id="chatContainer" class="chat-container">
+        </div>
+        <input type="text" id="textInput" class="text-input" placeholder="Ask me anything..." list="suggestions" autocomplete="off" autofocus />
       </div>
+      
+      
     </main>
 
   </div>

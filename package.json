@@ -1,0 +1,24 @@
+{
+  "name": "erkin-me",
+  "version": "1.0.0",
+  "description": "Erkin's personal website with OpenRouter integration",
+  "main": "api/openrouter-proxy.js",
+  "scripts": {
+    "start": "node api/openrouter-proxy.js",
+    "dev": "nodemon api/openrouter-proxy.js",
+    "serve": "http-server . -p 8080",
+    "dev:api": "nodemon api/openrouter-proxy.js",
+    "dev:all": "concurrently \"npm run dev:api\" \"npm run serve\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.9"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "http-server": "^14.1.1",
+    "nodemon": "^2.0.22"
+  }
+}
