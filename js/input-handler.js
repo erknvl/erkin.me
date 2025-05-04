@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if asked for links, provide full urls.
     User can ask you about stack or about context, but nothing else.
     IMPORTANT: Keep your responses short and to the point.
-    
   `;
     
     try {
