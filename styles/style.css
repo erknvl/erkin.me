@@ -99,13 +99,14 @@ main {
 .code-container {
   text-align: left;
   background-color: var(--bg-color);
-  border-radius: 6px;
-  padding: 20px;
+  border-radius: 8px;
+  padding: 40px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
   position: relative;
   overflow: auto;
+  
 }
 
 .code-line {
@@ -208,8 +209,9 @@ a:hover {
   content: '|';
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 35px;
   color: var(--text-color);
+  font-size: 20px;
   animation: blink 1s infinite;
 }
 
