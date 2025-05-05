@@ -2,7 +2,7 @@
   "name": "erkin-me",
   "version": "1.0.0",
   "description": "Erkin's personal website with OpenRouter integration",
-  "main": "api/openrouter-proxy.js",
+  "main": "api/openrouter.js",
   "scripts": {
     "serve": "http-server . -p 8080",
     "dev": "vercel dev",

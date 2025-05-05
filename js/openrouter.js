@@ -10,7 +10,7 @@ class AIAssistant {
       console.log('Using Vercel serverless function endpoint');
     } else {
       // Use local development server in development
-      this.endpoint = 'http://localhost:3000/api/openrouter';
+      this.endpoint = 'http://localhost:3001/api/openrouter';
       console.log('Using local development endpoint');
     }
     
