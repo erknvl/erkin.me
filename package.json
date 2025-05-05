@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Erkin's personal website with OpenRouter integration",
   "main": "api/openrouter.js",
+  "type": "module",
   "scripts": {
     "serve": "http-server . -p 8080",
     "dev": "vercel dev",

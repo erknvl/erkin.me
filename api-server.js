@@ -1,8 +1,14 @@
 // API Server for local development
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const openrouterHandler = require('./api/openrouter');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { createRequire } from 'module';
+
+// Import the OpenRouter handler
+import openrouterHandler from './api/openrouter.js';
+
+// For loading .env files
+const require = createRequire(import.meta.url);
 
 // Load environment variables
 dotenv.config();

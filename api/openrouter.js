@@ -1,8 +1,8 @@
 // OpenRouter API Serverless Function for Vercel
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 // This function will be automatically exposed as /api/openrouter
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -71,4 +71,4 @@ module.exports = async (req, res) => {
     console.error('Server error:', error);
     return res.status(500).json({ error: 'Internal server error', message: error.message });
   }
-};
+}
