@@ -4,21 +4,23 @@
   "description": "Erkin's personal website with OpenRouter integration",
   "main": "api/openrouter-proxy.js",
   "scripts": {
-    "start": "node api/openrouter-proxy.js",
-    "dev": "nodemon api/openrouter-proxy.js",
     "serve": "http-server . -p 8080",
-    "dev:api": "nodemon api/openrouter-proxy.js",
-    "dev:all": "concurrently \"npm run dev:api\" \"npm run serve\""
+    "dev": "vercel dev",
+    "vercel-build": "echo 'Build step completed'"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "node-fetch": "^2.6.9"
+    "node-fetch": "^2.6.9",
+    "vercel": "^41.7.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
     "http-server": "^14.1.1",
     "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
