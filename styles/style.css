@@ -235,9 +235,20 @@ a:hover {
   font-family: "Geist Mono", monospace;
   font-size: 0.95rem;
   padding: 5px 0 20px 0px;
-  border-bottom: 1px dashed var(--text-color);
+  border-bottom: 0px dashed var(--text-color);
   line-height: 1.4;
   text-align: left;
+  animation: showBorder 0.5s forwards;
+  animation-delay: 3.3s; /* Show border just before the text input appears */
+}
+
+@keyframes showBorder {
+  from {
+    border-bottom-width: 0px;
+  }
+  to {
+    border-bottom-width: 1px;
+  }
 }
 
 .chat-message {
@@ -257,7 +268,7 @@ a:hover {
 }
 
 .user-message::before {
-  content: '// ';
+  content: '// Guest ';
   opacity: 0.7;
 }
 
@@ -267,12 +278,6 @@ a:hover {
   margin-left: 10px;
 }
 
-.assistant-message-container.typing .assistant-message::after {
-  content: '|';
-  display: inline-block;
-  font-size: 20px;
-  animation: blink 1s infinite;
-}
 
 .text-input {
   width: 100%;
@@ -282,17 +287,19 @@ a:hover {
   font-size: 0.95rem;
   background-color: var(--bg-color);
   color: var(--text-color);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s forwards;
+  animation-delay: 3.5s; /* Slightly longer delay to ensure cursor is visible first */
+  position: relative;
+  z-index: 10; /* Ensure it's above other elements */
 }
 
 .text-input:focus {
   outline: none;
 }
 
-/* Style for the cursor in the text input */
-.text-input::after {
-  content: '|';
-  animation: blink 1s infinite;
-}
+
 
 /* Style the datalist dropdown (browser support varies) */
 datalist {
@@ -356,6 +363,17 @@ datalist {
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Make sure indented lines maintain their indentation during animation */

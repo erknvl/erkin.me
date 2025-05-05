@@ -42,14 +42,23 @@
       // Calculate delay to fit all animations within ~3 seconds
       const delayPerLine = 3000 / totalLines;
       let delay = 50; // Initial delay before starting
+      const textInput = document.getElementById('textInput');
       
       codeLines.forEach((line, index) => {
         // Calculate staggered delay for each line
         const lineDelay = delay + (index * delayPerLine);
+        const isLastLine = index === totalLines - 1;
         
         // Add visible class with delay to create typing effect
         setTimeout(() => {
           line.classList.add('visible');
+          
+          // If this is the last line, focus the text input after a short delay
+          if (isLastLine) {
+            setTimeout(() => {
+              textInput.focus();
+            }, 500);
+          }
         }, lineDelay);
       });
     });
@@ -86,7 +95,7 @@
             <div class="code-line indent"><span class="property">telegram</span>: <span class="string"><a class="social" href="https://t.me/erknvl" target="_blank">"@erknvl"</a></span></div>
             <div class="code-line">);</div>
             <div class="code-line"><span class="comment">// TO-DO: I'll add more data, but for now you can just type to ask me anything</span></div>
-            <div class="code-line"><span class="comment">// can just type to ask me anything</span></div>
+            <div class="code-line cursor-line"><span class="comment">// can just type to ask me anything</span></div>
 
       </br>
         <div id="chatContainer" class="chat-container">
