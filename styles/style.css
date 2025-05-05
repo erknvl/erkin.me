@@ -268,14 +268,14 @@ a:hover {
 }
 
 .user-message::before {
-  content: '// Guest ';
+  content: '// Request: ';
   opacity: 0.7;
 }
 
 .assistant-message {
   color: var(--comment-color);
   opacity: 0.9;
-  margin-left: 10px;
+  
 }
 
 
