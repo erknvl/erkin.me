@@ -183,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
     
     try {
-      // Use the OpenRouter assistant to get a response
-      return await window.assistant.generateResponse(userInput, context);
+      // Use the OpenRouter assistant to get a response, passing the chat history
+      return await window.assistant.generateResponse(userInput, context, chatHistory);
     } catch (error) {
       console.error('Error from OpenRouter:', error);
       throw error;

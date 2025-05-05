@@ -77,7 +77,7 @@ class AIAssistant {
   }
 
   // Generate a response using the OpenRouter API
-  async generateResponse(prompt, context = '') {
+  async generateResponse(prompt, context = '', chatHistory = []) {
     return this.whenReady(async () => {
       try {
         console.log('Sending request to:', this.endpoint);
@@ -90,7 +90,8 @@ class AIAssistant {
           },
           body: JSON.stringify({
             prompt,
-            context
+            context,
+            chatHistory
           })
         });
         

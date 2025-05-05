@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     // Debug request body
     console.log('Request body:', JSON.stringify(req.body));
     
-    const { prompt, context } = req.body;
+    const { prompt, context, chatHistory = [] } = req.body;
     
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
@@ -49,12 +49,24 @@ export default async function handler(req, res) {
     // Call OpenRouter API
     console.log('Calling OpenRouter API...');
     try {
+      // Prepare messages array with system message and chat history
+      const messages = [
+        { role: 'system', content: `You are an assistant for Erkin Ovlyagulyyev, a Flutter Developer. ${context || ''}` }
+      ];
+      
+      // Add chat history if available
+      if (chatHistory && chatHistory.length > 0) {
+        // Only use the last 10 messages to keep context manageable
+        const recentHistory = chatHistory.slice(-10);
+        messages.push(...recentHistory);
+      }
+      
+      // Add the current user message
+      messages.push({ role: 'user', content: prompt });
+      
       const requestBody = {
         model: 'mistralai/mistral-small-3.1-24b-instruct:free',
-        messages: [
-          { role: 'system', content: `You are an assistant for Erkin Ovlyagulyyev, a Flutter Developer. ${context || ''}` },
-          { role: 'user', content: prompt }
-        ]
+        messages: messages
       };
       
       console.log('Request payload:', JSON.stringify(requestBody));
