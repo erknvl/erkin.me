@@ -118,6 +118,8 @@ main {
   line-height: 1.5;
   margin-bottom: 4px;
   white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .indent {
@@ -184,21 +186,33 @@ a:hover {
   }
 
   .code-container {
-    padding: 15px;
+    padding: 15px 10px;
     max-width: 100%;
+    overflow-x: hidden;
   }
 
   .root-container {
     margin: 0;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
+    overflow-x: hidden;
   }
 
   main {
     width: 100%;
-    padding: 10px;
+    padding: 5px;
+    overflow-x: hidden;
   }
-
+  
+  .code-line {
+    font-size: 0.9rem;
+  }
+  
+  .text-input {
+    font-size: 0.9rem;
+    padding: 10px 0px;
+  }
+  
   .theme-toggle {
     top: 10px;
     right: 10px;
@@ -293,6 +307,9 @@ a:hover {
   animation-delay: 3.5s; /* Slightly longer delay to ensure cursor is visible first */
   position: relative;
   z-index: 10; /* Ensure it's above other elements */
+  -webkit-appearance: none; /* Prevent iOS default styling */
+  appearance: none; /* Standard property for compatibility */
+  border-radius: 0; /* Prevent iOS rounded corners */
 }
 
 .text-input:focus {
