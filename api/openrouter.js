@@ -65,7 +65,7 @@ export default async function handler(req, res) {
       messages.push({ role: 'user', content: prompt });
       
       const requestBody = {
-        model: 'mistralai/mistral-small-3.1-24b-instruct:free',
+        model: 'meta-llama/llama-4-maverick:free',
         messages: messages
       };
       
