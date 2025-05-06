@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
       const userInput = this.value.trim();
       if (!userInput) return;
       
+      // Disable input while processing
+      textInput.disabled = true;
+      textInput.placeholder = 'Waiting for response...';      
+      
       // Clear the input
       this.value = '';
       
@@ -47,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show detailed error message
         assistantMessageContainer.classList.remove('typing');
         assistantMessageContainer.textContent = `Error: ${error.message || 'Unknown error'}. Check console for details.`;
+      } finally {
+        // Re-enable input after response is complete
+        textInput.disabled = false;
+        textInput.placeholder = 'Ask anything...';
+        textInput.focus();
       }
     }
   });
@@ -178,8 +187,9 @@ document.addEventListener('DOMContentLoaded', function() {
     - Preferred contact method for opportunities: Telegram (@erknvl)
 
     Keep responses concise and friendly. If you don't know something specific about Erkin, be honest about it rather than making up information. Don't provide extra information beyond what's asked. If asked for links, provide full URLs. Response should be in HTML format.
-    User can ask about Erkin's stack or background, but nothing else.
-    IMPORTANT: Keep your responses short and to the point, but still in a friendly manner.
+    User can ask about Erkin's stack or background, or something in similar topic.
+    User can ask question about what stack means: for example - what is bloc, or what is flutter, or what is provider.
+    IMPORTANT: Keep your responses short or short-medium and to the point, but still in a friendly manner.
   `;
     
     try {
