@@ -89,9 +89,9 @@ class AIAssistant {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            prompt,
-            context,
-            chatHistory
+            prompt: 'User: ' + prompt,
+            context: 'Context: ' + context,
+            chatHistory: 'Chat History: ' + chatHistory
           })
         });
         
